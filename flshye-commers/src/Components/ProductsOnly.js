@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
-import { Link, useParams } from 'react-router-dom';
-// import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+import {  useParams } from 'react-router-dom';
+import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux';
+import { addProduct } from "../Data/Slices/ProductsSlices";
 const ProductsOnly = () => {
     const { Id } = useParams()
     const [onlyProduct, setProductOnly] = useState([])
@@ -15,6 +16,16 @@ const ProductsOnly = () => {
     useEffect(() => {
         fetchProductOnly()
     }, [])
+    const dispatch = useDispatch()
+    const sccesfull = () => {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Added successfully 🎉🎊😘',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     return (
         <>
             <Container className="my-5 d-flex align-items-center cartContainer">
@@ -26,12 +37,12 @@ const ProductsOnly = () => {
                     <div className="ditels d-flex flex-col col-xs-9 col-md-6">
                         <h3>{onlyProduct.title}</h3>
                         <hr />
-                        <p>
+                        <div>
                             <b>Description:</b>
                             <br />
                             {onlyProduct.description}
-                        </p>
-                        <p className="d-flex align-items-center gap-2">
+                        </div>
+                        <div className="d-flex align-items-center gap-2">
                             <h3 >
                                 Price:
                             </h3>
@@ -41,10 +52,13 @@ const ProductsOnly = () => {
                             <span className="fs-4">
                                 &nbsp;&nbsp;{Math.ceil(onlyProduct.price)}$
                             </span>
-                        </p>
+                        </div>
                         <p><b>ID:</b> &nbsp;
                             {onlyProduct.id}</p>
-                        <Button className="w-100 rounded-lg text-white bg-slate-700">Add Cart</Button>
+                        <Button onClick={() => {
+                            dispatch(addProduct(onlyProduct))
+                            sccesfull()
+                        }} className="w-100 rounded-lg text-white bg-slate-700">Add Cart</Button>
                     </div>
                 </div>
             </Container>
