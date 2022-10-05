@@ -5,9 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-right: 0px !important;
 }
 
-
+.swal2-actions > button{
+  margin-left: 10px;
+}
 label::selection {
   color: black;
 }

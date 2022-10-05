@@ -34,9 +34,8 @@ const Home = () => {
             <div className="App mt-2 d-flex container">
                 <input placeholder="Searche" type="text" className="m-auto px-3 border-2 border-primary rounded-lg h-12 w-72" />
                 <div className='h-full '>
-                    <Button variant="primary" className='ms-1 mt-auto' onClick={handleShow}>
-                        filtration
-                    </Button>
+                <button type="button"  onClick={handleShow} className="ms-1 mt-auto btn btn-outline-info text-dark">filtration</button>
+
                 </div>
             </div>
             <Offcanvas show={show} onHide={handleClose}>

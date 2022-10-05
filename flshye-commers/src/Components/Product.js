@@ -38,7 +38,7 @@ const Product = (props) => {
                             dispatch(addProduct(product))
                             sccesfull()
                         }} className="" variant="primary">Add Cart</Button>
-                        <Link to={loc} className="ms-4 btn btn-primary" >See More</Link>
+                        <Link to={loc} className="ms-4 btn btn-outline-primary" >See More</Link>
                     </div>
                 </Card.Body>
             </Card>

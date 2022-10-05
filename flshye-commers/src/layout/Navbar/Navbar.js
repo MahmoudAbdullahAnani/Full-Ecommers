@@ -28,8 +28,8 @@ const Navbar = () => {
                     <div className="">
                         <NavLink to="/cart">
                             <button className="">
-                                <span className="text-white bg-danger relative left-2 top-2 px-2 rounded-circle">{cartProductVall.length}</span>
-                                 <i className="fa-solid text-white fa-bag-shopping  fs-3 "></i>
+                                <span className="text-white bg-danger relative left-2 top-2 px-2 rounded-circle">{cartProductVall.length>0?cartProductVall.length:'😃'}</span>
+                                <i className="fa-solid text-white fa-bag-shopping  fs-3 "></i>
                             </button>
                         </NavLink>
                         <NavLink to="/user">
