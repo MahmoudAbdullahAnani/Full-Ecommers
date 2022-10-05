@@ -6,7 +6,20 @@ import {  useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from "../Data/Slices/ProductsSlices";
+import { Howl } from 'howler';
 const ProductsOnly = () => {
+// const srcSound = './anime-wow-sound-effect.mp3'
+// const playSoundBtn = ()=>{
+    const Sound = new Howl ({
+        src:['../Data/anime-wow-sound-effect.mp3'],
+        html5: true
+    })
+    // sound.play()
+// }
+
+
+
+
     const { Id } = useParams()
     const [onlyProduct, setProductOnly] = useState([])
     const fetchProductOnly = () => {
@@ -58,10 +71,9 @@ const ProductsOnly = () => {
                         <p><b>ID:</b> &nbsp;
                             {onlyProduct.id}</p>
                         <Button onClick={() => {
-                            vallCartget.map(chek=>{
-                                return chek.id === onlyProduct.id ? dispatch(addProduct(onlyProduct)) : console.log('false');
-                            })
-                            // dispatch(addProduct(onlyProduct))
+                            // playSoundBtn(srcSound)
+                            Sound.play()
+                            dispatch(addProduct(onlyProduct))
                             sccesfull()
                         }} className="w-100 rounded-lg text-white bg-slate-700">Add Cart</Button>
                     </div>

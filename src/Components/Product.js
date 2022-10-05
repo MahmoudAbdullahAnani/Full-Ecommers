@@ -2,7 +2,7 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from "../Data/Slices/ProductsSlices";
 import Swal from 'sweetalert2'
 const Product = (props) => {
@@ -18,6 +18,9 @@ const Product = (props) => {
             timer: 1500
         })
     }
+    // const cartProductVall = useSelector(store => store.cartProducts)
+    // var countKey = [];
+
     return (
         <>
             <Card style={{ width: '18rem' }}>
@@ -34,9 +37,10 @@ const Product = (props) => {
                         <span className="fs-5">price:</span>  <span className="fs-5">{product.price}$</span>
                     </Card.Text>
                     <div className="text-center father-btn">
-                        <Button onClick={() => {
+                        <Button onClick={(e) => {
                             dispatch(addProduct(product))
                             sccesfull()
+                            
                         }} className="" variant="primary">Add Cart</Button>
                         <Link to={loc} className="ms-4 btn btn-outline-primary" >See More</Link>
                     </div>

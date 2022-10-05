@@ -12,6 +12,7 @@ import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/esm/Button";
 import { clearProduct, removeProduct } from "../Data/Slices/ProductsSlices";
 import Swal from 'sweetalert2'
+import FormaterPrice from './../Data/FormaterCurrence';
 const Cart = () => {
     const cartProductVall = useSelector(store => store.cartProducts)
     const dispatch = useDispatch()
@@ -22,7 +23,8 @@ const Cart = () => {
         },
         buttonsStyling: false
     })
-    var itemsPrice=0
+    var itemsPrice=0;
+    var cartProductsIds = [];
     return (
         <>
             <Swiper
@@ -45,7 +47,7 @@ const Cart = () => {
                     cartProductVall.map(cartPro => {
                         return (
                             <SwiperSlide
-                                key={cartPro.id}>
+                                key={Math.random()}>
                                 <Container className="my-5 d-flex align-items-center cartContainer">
                                     <div className="row  w-full m-auto  my-2 border-2 border-zinc-600 p-10 rounded-tl-3xl rounded-br-3xl">
                                         <div className="viowImage col-xs-9 overflow-hidden col-md-6">
@@ -96,18 +98,26 @@ const Cart = () => {
                     <tbody>
                         {
                             cartProductVall.map(cartProduct => {
+                                const count = {};
+
                                 itemsPrice+=Math.ceil(cartProduct.price)
+                                cartProductsIds.push(cartProduct.id)
+
+                                console.log(cartProductsIds);
+                                cartProductsIds.forEach(val=>count[val]=(count[val] || 0)+1)
+                                console.log(count);
                                 return (
-                                    <tr key={(cartProduct.id) + 100}>
+                                    <tr key={Math.random()}>
                                         <td className="text-center">
                                             <b>
                                                 {cartProduct.id}
                                             </b>
                                         </td>
                                         <td>{cartProduct.title}</td>
-                                        <td>{cartProduct.id.length}</td>
+                                        <td>{count.id}</td>
                                         <td className="text-center">{cartProduct.category}</td>
-                                        <td className="text-center">{Math.ceil(cartProduct.price)}$</td>
+                                        {/* Math.ceil(cartProduct.price) */}
+                                        <td className="text-center">{FormaterPrice(Math.ceil(cartProduct.price))}</td>
                                         <td className="overflow-hidden ">
                                             <img src={cartProduct.image} className="w-12 m-auto" alt={cartProduct.title} />
                                         </td>

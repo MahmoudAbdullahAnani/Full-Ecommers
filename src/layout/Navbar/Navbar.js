@@ -8,7 +8,7 @@ const Navbar = () => {
         <>
             <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
                 <div className="container">
-                    <span className="navbar-brand w-12 d-flex cursor-default align-items-center text-white" href="/#">
+                    <span aria-label="logo" className="navbar-brand w-12 d-flex cursor-default align-items-center text-white" href="/#">
                         <img src={logo} className="w-100" alt="flashye" />
                         Flashye
                     </span>
