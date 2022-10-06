@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from "../Data/Slices/ProductsSlices";
+import { addProduct, removeProduct } from "../Data/Slices/ProductsSlices";
 import Swal from 'sweetalert2'
+import FormaterPrice from "../Data/FormaterCurrence";
 const Product = (props) => {
     const { product } = props
     const loc = `/product/${product.id}`
@@ -29,9 +30,10 @@ const Product = (props) => {
     }
     const cartProductVall = useSelector(store => store.cartProducts)
     const countKey = [];
-    countKey.push(cartProductVall.map(product=>{
+    countKey.push(cartProductVall.map(product => {
         return product.id
     }))
+    const [countProduct, setCountProduct] = useState(1)
     return (
         <>
             <Card style={{ width: '18rem' }}>
@@ -41,25 +43,38 @@ const Product = (props) => {
                 <Card.Body className="p-0 pb-2">
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>
-                        {/* product.description.substr(0,60) */}
                         {product.description !== undefined && product.description.substr(0, 60)}...
                     </Card.Text>
                     <Card.Text>
-                        <span className="fs-5">price:</span>  <span className="fs-5">{product.price}$</span>
+                        <span className="fs-5">price:</span>
+                        <span className="fs-5">
+                            {FormaterPrice(((product.price)* countProduct)===0? product.price :((product.price)* countProduct)) }
+                        </span>
                     </Card.Text>
-                    <div className="text-center father-btn">
+                    <div className="text-center d-flex father-btn">
                         {
-                            <Button onClick={() => {
-                                if(countKey[0].includes(product.id)){
+                            countKey[0].includes(product.id) & countProduct > 0 ? <div className="d-flex text-center h-fit gap-2 justify-center  font-bold">
+                                <Button onClick={() => {
+                                    countProduct <= 1 &&
+                                    dispatch(removeProduct(product.id))
+                                    setCountProduct(countProduct - 1)
+                                }}>-</Button>
+                                <div className="bg-secondary text-white bg-gradient px-3 rounded ">
+                                    {countProduct}
+                                </div>
+                                <Button onClick={() => {
+                                    setCountProduct(countProduct + 1)
+                                }}>+</Button>
+                            </div> : <Button onClick={() => {
+                                if (countKey[0].includes(product.id)) {
                                     fail()
                                 }
-                                else{
+                                else {
                                     dispatch(addProduct(product))
                                     sccesfull()
                                 }
                             }} className="" variant="primary">Add Cart</Button>
                         }
-                        
                         <Link to={loc} className="ms-4 btn btn-outline-primary" >See More</Link>
                     </div>
                 </Card.Body>

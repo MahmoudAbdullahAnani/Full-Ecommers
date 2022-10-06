@@ -3,14 +3,12 @@ import Container from "react-bootstrap/esm/Container";
 import { useDispatch, useSelector } from 'react-redux';
 import { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/esm/Button";
-import { clearProduct, removeProduct } from "../Data/Slices/ProductsSlices";
+import {  clearProduct, removeProduct } from "../Data/Slices/ProductsSlices";
 import Swal from 'sweetalert2'
 import FormaterPrice from './../Data/FormaterCurrence';
 const Cart = () => {
@@ -88,7 +86,6 @@ const Cart = () => {
                         <tr>
                             <th className="text-center">ID</th>
                             <th>Title</th>
-                            <th className="text-center">Quantity</th>
                             <th className="text-center">Category</th>
                             <th className="text-center">Price</th>
                             <th className="text-center">Image</th>
@@ -99,14 +96,9 @@ const Cart = () => {
                         {
                             cartProductVall.map(cartProduct => {
                                 const count = {};
-
                                 itemsPrice += Math.ceil(cartProduct.price)
                                 cartProductsIds.push(cartProduct.id)
-
-                                console.log(cartProductsIds);
                                 cartProductsIds.forEach(val => count[val] = (count[val] || 0) + 1)
-                                console.log(count);
-                                console.log(count['3']);
                                 return (
                                     <tr key={Math.random()}>
                                         <td className="text-center">
@@ -115,15 +107,6 @@ const Cart = () => {
                                             </b>
                                         </td>
                                         <td>{cartProduct.title}</td>
-                                        <td>
-                                            <div className="d-flex text-center gap-2 justify-center  font-bold">
-                                                <Button>-</Button>
-                                                <div className="bg-secondary text-white bg-gradient px-4 rounded ">
-                                                    {count[`${cartProduct.id}`]}
-                                                </div>
-                                                <Button onClick={()=> count[`${cartProduct.id}`] = count[`${cartProduct.id}`]+1}>+</Button>
-                                            </div>
-                                        </td>
                                         <td className="text-center">{cartProduct.category}</td>
                                         <td className="text-center">{FormaterPrice(Math.ceil(cartProduct.price))}</td>
                                         <td className="overflow-hidden ">
@@ -148,7 +131,6 @@ const Cart = () => {
                                                             'success'
                                                         )
                                                     } else if (
-                                                        /* Read more about handling dismissals below */
                                                         result.dismiss === Swal.DismissReason.cancel
                                                     ) {
                                                         swalWithBootstrapButtons.fire(
@@ -170,14 +152,13 @@ const Cart = () => {
                         <tr>
                             <th>Total: {cartProductVall.length}</th>
                             <th></th>
-                            <th></th>
+                            {/* <th></th> */}
                             <th></th>
                             <th className="text-center">
                                 {FormaterPrice(itemsPrice)}
                             </th>
                             <th></th>
                             <th className="w-16"><Button onClick={() => {
-                                //dispatch(clearProduct())
                                 swalWithBootstrapButtons.fire({
                                     title: 'Are you sure?',
                                     text: "You won't be able to revert this!",
@@ -195,7 +176,6 @@ const Cart = () => {
                                             'success'
                                         )
                                     } else if (
-                                        /* Read more about handling dismissals below */
                                         result.dismiss === Swal.DismissReason.cancel
                                     ) {
                                         swalWithBootstrapButtons.fire(

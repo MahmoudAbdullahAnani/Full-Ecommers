@@ -83,7 +83,7 @@ const Home = () => {
                 </Offcanvas.Body>
             </Offcanvas>
             {/* Create Carts */}
-            <Container className='mt-4'>
+            <Container className='mt-4 pb-12'>
                 <Row className='justify-content-around gap-3'>
                     {
                         products.map(product => {
