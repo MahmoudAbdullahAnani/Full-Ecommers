@@ -12,14 +12,14 @@ const Home = () => {
 
 
     const [products, setProducts] = useState([])
-    const [API, setAPI] = useState('http://localhost:9000/products')
+    const [API, setAPI] = useState('https://fakestoreapi.com/products')
     const [Category, setCategory] = useState([])
     const fetchProducts = () => {
         axios.get(API)
             .then(res => setProducts(res.data))
     }
     const fetchProductsCategory = () => {
-        axios.get('http://localhost:9000/categories')
+        axios.get('https://fakestoreapi.com/products/categories')
             .then(res => setCategory(res.data))
     }
     useEffect(() => {
@@ -55,7 +55,7 @@ const Home = () => {
                                 })
                             }
                             <Button onClick={() => {
-                                setAPI('http://localhost:9000/products')
+                                setAPI('https://fakestoreapi.com/products')
                                 fetchProducts()
                             }}>All Products</Button>
                         </div>

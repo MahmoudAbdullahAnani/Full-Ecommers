@@ -10,7 +10,7 @@ const ProductsOnly = () => {
     const { Id } = useParams()
     const [onlyProduct, setProductOnly] = useState([])
     const fetchProductOnly = () => {
-        axios.get(`http://localhost:9000/products/${Id}`)
+        axios.get(`https://fakestoreapi.com/products/${Id}`)
             .then(res => setProductOnly(res.data))
     }
     useEffect(() => {
