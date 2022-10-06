@@ -6,20 +6,7 @@ import {  useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from "../Data/Slices/ProductsSlices";
-import { Howl } from 'howler';
 const ProductsOnly = () => {
-// const srcSound = './anime-wow-sound-effect.mp3'
-// const playSoundBtn = ()=>{
-    const Sound = new Howl ({
-        src:['../Data/anime-wow-sound-effect.mp3'],
-        html5: true
-    })
-    // sound.play()
-// }
-
-
-
-
     const { Id } = useParams()
     const [onlyProduct, setProductOnly] = useState([])
     const fetchProductOnly = () => {
@@ -39,8 +26,20 @@ const ProductsOnly = () => {
             timer: 1500
         })
     }
+    const fail = () => {
+        Swal.fire({
+            position: 'top-start',
+            icon: 'info',
+            title: 'Already exists 🤨',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     const vallCartget = useSelector(store => store.cartProducts)
-    // console.log(vallCartget);
+    const countKey = [];
+    countKey.push(vallCartget.map(product=>{
+        return product.id
+    }))
     return (
         <>
             <Container className="my-5 d-flex align-items-center cartContainer">
@@ -71,10 +70,13 @@ const ProductsOnly = () => {
                         <p><b>ID:</b> &nbsp;
                             {onlyProduct.id}</p>
                         <Button onClick={() => {
-                            // playSoundBtn(srcSound)
-                            Sound.play()
-                            dispatch(addProduct(onlyProduct))
-                            sccesfull()
+                                if(countKey[0].includes(onlyProduct.id)){
+                                    fail()
+                                }
+                                else{
+                                    dispatch(addProduct(onlyProduct))
+                                    sccesfull()
+                                }
                         }} className="w-100 rounded-lg text-white bg-slate-700">Add Cart</Button>
                     </div>
                 </div>

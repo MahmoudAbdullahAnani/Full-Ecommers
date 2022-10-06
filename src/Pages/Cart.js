@@ -23,7 +23,7 @@ const Cart = () => {
         },
         buttonsStyling: false
     })
-    var itemsPrice=0;
+    var itemsPrice = 0;
     var cartProductsIds = [];
     return (
         <>
@@ -88,7 +88,7 @@ const Cart = () => {
                         <tr>
                             <th className="text-center">ID</th>
                             <th>Title</th>
-                            <th>Quantity</th>
+                            <th className="text-center">Quantity</th>
                             <th className="text-center">Category</th>
                             <th className="text-center">Price</th>
                             <th className="text-center">Image</th>
@@ -100,12 +100,13 @@ const Cart = () => {
                             cartProductVall.map(cartProduct => {
                                 const count = {};
 
-                                itemsPrice+=Math.ceil(cartProduct.price)
+                                itemsPrice += Math.ceil(cartProduct.price)
                                 cartProductsIds.push(cartProduct.id)
 
                                 console.log(cartProductsIds);
-                                cartProductsIds.forEach(val=>count[val]=(count[val] || 0)+1)
+                                cartProductsIds.forEach(val => count[val] = (count[val] || 0) + 1)
                                 console.log(count);
+                                console.log(count['3']);
                                 return (
                                     <tr key={Math.random()}>
                                         <td className="text-center">
@@ -114,9 +115,16 @@ const Cart = () => {
                                             </b>
                                         </td>
                                         <td>{cartProduct.title}</td>
-                                        <td>{count.id}</td>
+                                        <td>
+                                            <div className="d-flex text-center gap-2 justify-center  font-bold">
+                                                <Button>-</Button>
+                                                <div className="bg-secondary text-white bg-gradient px-4 rounded ">
+                                                    {count[`${cartProduct.id}`]}
+                                                </div>
+                                                <Button onClick={()=> count[`${cartProduct.id}`] = count[`${cartProduct.id}`]+1}>+</Button>
+                                            </div>
+                                        </td>
                                         <td className="text-center">{cartProduct.category}</td>
-                                        {/* Math.ceil(cartProduct.price) */}
                                         <td className="text-center">{FormaterPrice(Math.ceil(cartProduct.price))}</td>
                                         <td className="overflow-hidden ">
                                             <img src={cartProduct.image} className="w-12 m-auto" alt={cartProduct.title} />
@@ -165,7 +173,7 @@ const Cart = () => {
                             <th></th>
                             <th></th>
                             <th className="text-center">
-                                {itemsPrice}$
+                                {FormaterPrice(itemsPrice)}
                             </th>
                             <th></th>
                             <th className="w-16"><Button onClick={() => {

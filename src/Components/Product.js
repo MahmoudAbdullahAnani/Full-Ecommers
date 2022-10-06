@@ -11,16 +11,27 @@ const Product = (props) => {
     const dispatch = useDispatch()
     const sccesfull = () => {
         Swal.fire({
-            position: 'top-start',
+            position: 'top-end',
             icon: 'success',
             title: 'Added successfully 🎉🎊😘',
             showConfirmButton: false,
             timer: 1500
         })
     }
-    // const cartProductVall = useSelector(store => store.cartProducts)
-    // var countKey = [];
-
+    const fail = () => {
+        Swal.fire({
+            position: 'top-start',
+            icon: 'info',
+            title: 'Already exists 🤨',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+    const cartProductVall = useSelector(store => store.cartProducts)
+    const countKey = [];
+    countKey.push(cartProductVall.map(product=>{
+        return product.id
+    }))
     return (
         <>
             <Card style={{ width: '18rem' }}>
@@ -37,11 +48,18 @@ const Product = (props) => {
                         <span className="fs-5">price:</span>  <span className="fs-5">{product.price}$</span>
                     </Card.Text>
                     <div className="text-center father-btn">
-                        <Button onClick={(e) => {
-                            dispatch(addProduct(product))
-                            sccesfull()
-                            
-                        }} className="" variant="primary">Add Cart</Button>
+                        {
+                            <Button onClick={() => {
+                                if(countKey[0].includes(product.id)){
+                                    fail()
+                                }
+                                else{
+                                    dispatch(addProduct(product))
+                                    sccesfull()
+                                }
+                            }} className="" variant="primary">Add Cart</Button>
+                        }
+                        
                         <Link to={loc} className="ms-4 btn btn-outline-primary" >See More</Link>
                     </div>
                 </Card.Body>
