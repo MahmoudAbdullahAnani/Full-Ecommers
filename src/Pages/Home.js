@@ -54,7 +54,7 @@ const Home = () => {
                                     }} className="text-dark btn btn-outline-warning">{cat}</button>
                                 })
                             }
-                            <Button onClick={() => {
+                            <Button className="bg-primary" onClick={() => {
                                 setAPI('https://fakestoreapi.com/products')
                                 fetchProducts()
                             }}>All Products</Button>
