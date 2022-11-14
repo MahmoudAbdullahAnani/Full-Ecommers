@@ -54,7 +54,7 @@ const Product = (props) => {
                     <div className="text-center d-flex father-btn">
                         {
                             countKey[0].includes(product.id) & countProduct > 0 ? <div className="d-flex text-center h-fit gap-2 justify-center  font-bold">
-                                <Button onClick={() => {
+                                <Button className="bg-primary" onClick={() => {
                                     countProduct <= 1 &&
                                     dispatch(removeProduct(product.id))
                                     setCountProduct(countProduct - 1)
@@ -62,7 +62,7 @@ const Product = (props) => {
                                 <div className="bg-secondary text-white bg-gradient px-3 rounded ">
                                     {countProduct}
                                 </div>
-                                <Button onClick={() => {
+                                <Button className="bg-primary" onClick={() => {
                                     setCountProduct(countProduct + 1)
                                 }}>+</Button>
                             </div> : <Button onClick={() => {
